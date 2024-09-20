@@ -1,0 +1,23 @@
+Process ConstructionEcole {
+	
+  int budgetTotal = 5000000
+  
+  ActorCategory Acteurs {
+    codeActeur: "Architecte", "Ouvriers"
+    descriptionActeur: "Acteurs impliqués dans la construction"
+  }
+
+  TaskSimple Planification {
+    description: "Planification des étapes du projet"
+  }
+
+  TaskComposite Construction {
+    description: "Construction de l'école"
+    taches 
+    TaskSimple Planification {}
+  }
+
+  TaskSimple Reception {
+    description: "Réception des travaux"
+  }
+}
