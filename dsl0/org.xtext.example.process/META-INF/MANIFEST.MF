@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: org.xtext.example.process
+Bundle-ManifestVersion: 2
+Bundle-Name: org.xtext.example.process
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: org.xtext.example.process; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.16.0",
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.35.0",
+ org.eclipse.emf.common,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Export-Package: org.xtext.example.process.generator,
+ org.xtext.example.process,
+ org.xtext.example.process.services,
+ org.xtext.example.process.parser.antlr,
+ org.xtext.example.process.process.impl,
+ org.xtext.example.process.scoping,
+ org.xtext.example.process.process,
+ org.xtext.example.process.serializer,
+ org.xtext.example.process.parser.antlr.internal,
+ org.xtext.example.process.process.util,
+ org.xtext.example.process.validation
+Import-Package: org.apache.log4j

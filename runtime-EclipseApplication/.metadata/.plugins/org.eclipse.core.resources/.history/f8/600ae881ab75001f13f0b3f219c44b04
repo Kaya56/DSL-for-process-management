@@ -1,0 +1,92 @@
+Process "ConstructionEcole"
+{
+    ActorCategory "ActeursInstitutionnels"
+    {
+        codeActeur: "Région de Dakar"
+        descriptionActeur: "Acteurs Institutionnels"
+        actorsConcrete: [
+            ConcretActor "ActeurInst1" { descriptionActeur: "Région de Dakar" }
+        ]
+    }
+    
+    ActorCategory "ActeursSociaux"
+    {
+        codeActeur: "Populations de Dakar"
+        descriptionActeur: "Acteurs sociaux"
+        actorsConcrete: [
+            ConcretActor "ActeurSoc1" { descriptionActeur: "Populations de Dakar" }
+        ]
+    }
+    
+    ActorCategory "ActeursEconomiques"
+    {
+        codeActeur: "Région de l’Ile-de-France, Coopération Française et Agence Française de Développement"
+        descriptionActeur: "Acteurs économiques"
+        actorsConcrete: [
+            ConcretActor "ActeurEcon1" { descriptionActeur: "Région de l’Ile-de-France" }
+        ]
+    }
+
+    TaskComposite "TâcheComposite1"
+    {
+        descriptionActeur: "Construction d'une école de 2000 places à Dakar au Sénégal"
+        tâches: [
+            TaskSimple "TâcheSimple1" {
+                descriptionActeur: "Définition des cahiers des charges."
+            },
+            TaskSimple "TâcheSimple2" {
+                descriptionActeur: "Rédaction des appels d’offres."
+            },
+            TaskSimple "TâcheSimple3" {
+                descriptionActeur: "Sélection des entreprises."
+            },
+            TaskSimple "TâcheSimple4" {
+                descriptionActeur: "Suivi de chantier."
+            },
+            TaskSimple "TâcheSimple5" {
+                descriptionActeur: "Réception des travaux."
+            }
+        ]
+    }
+
+    TaskComposite "TâcheComposite2"
+    {
+        descriptionActeur: "Construction d'une école de 2000 places à Dakar au Sénégal"
+        tâches: [
+            TaskSimple "TâcheSimple1" {
+                descriptionActeur: "Définition des cahiers des charges."
+            },
+            TaskSimple "TâcheSimple2" {
+                descriptionActeur: "Suivi de chantier."
+            },
+            TaskSimple "TâcheSimple3" {
+                descriptionActeur: "Réception des travaux."
+            }
+        ]
+    }
+
+    TaskComposite "TâcheComposite3"
+    {
+        descriptionActeur: "Construction d'une école de 2000 places à Dakar au Sénégal"
+        tâches: [
+            TaskSimple "TâcheSimple1" {
+                descriptionActeur: "Définition des cahiers des charges."
+            },
+            TaskSimple "TâcheSimple2" {
+                descriptionActeur: "Rédaction des appels d’offres."
+            },
+            TaskSimple "TâcheSimple3" {
+                descriptionActeur: "Sélection des entreprises."
+            },
+            TaskSimple "TâcheSimple4" {
+                descriptionActeur: "Attribution des financements."
+            },
+            TaskSimple "TâcheSimple5" {
+                descriptionActeur: "Suivi de chantier."
+            },
+            TaskSimple "TâcheSimple6" {
+                descriptionActeur: "Réception des travaux."
+            }
+        ]
+    }
+}

@@ -1,0 +1,57 @@
+Process "ConstructionEcole"
+{
+    ActorCategory "ActeursInstitutionnels"
+    {
+        codeActeur: "Région de Dakar"
+        descriptionActeur: "Acteurs Institutionnels"
+    }
+
+    ActorCategory "ActeursSociaux"
+    {
+        codeActeur: "Populations de Dakar"
+        descriptionActeur: "Acteurs sociaux"
+    }
+
+    ActorCategory "ActeursEconomiques"
+    {
+        codeActeur: "Région de l’Ile-de-France, Coopération Française et Agence Française de Développement"
+        descriptionActeur: "Acteurs économiques"
+    }
+
+    TaskComposite "TâcheComposite1"
+    {
+        description: "Construction d'une école de 2000 places à Dakar au Sénégal"
+        
+        taches
+        
+        TaskSimple "TâcheSimple1"
+        {
+            description: "Définition des cahiers des charges."
+        }
+
+        TaskSimple "TâcheSimple2"
+        {
+            description: "Rédaction des appels d’offres."
+        }
+
+        TaskSimple "TâcheSimple3"
+        {
+            description: "Sélection des entreprises."
+        }
+
+        TaskSimple "TâcheSimple4"
+        {
+            description: "Attribution des financements."
+        }
+
+        TaskSimple "TâcheSimple5"
+        {
+            description: "Suivi de chantier."
+        }
+
+        TaskSimple "TâcheSimple6"
+        {
+            description: "Réception des travaux."
+        }
+    }
+}

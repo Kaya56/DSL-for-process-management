@@ -1,0 +1,104 @@
+Process rehabilitationTanks {
+     TaskComposite rehabilitationTanksAI (
+        CustumParameter BesoinPopulation (
+            string codeBesoin = 'B001'
+            string descriptionBesoin = 'Besoin rehabilitation Tanks'
+        )
+        <CustumParameter ProjetReceptionne(
+            string nomParametre = 'ProjetReceptionne'
+            string codeProjetR = 'P001'
+            string contenuR
+            string dateRecep
+            string codePlanC
+        )>
+    ) {
+    	taches
+        TaskSimple DefinitionInteretGeneral (
+            CustumParameter BesoinPopulation(
+                string codeBesoin = 'B001'
+                string descriptionBesoin = 'Besoin rehabilitation Tanks'
+            )
+            <CustumParameter ProjetR(
+                string codeProjet = 'P001'
+                string contenuProjet
+                string codeBesoin = 'B001'
+            )>
+        ){}
+
+        TaskSimple EtudeSelectionActeurs (
+            CustumParameter ProjetR (
+                string codeProjet = 'P001'
+            )
+            <CustumParameter ActeursChoisis(
+            	string code = 'A001', 'A002', 'A003'
+                string typeActeur = 'Acteurs Institutionnels' 'Acteurs Sociaux', 'Acteurs Economiques',
+                string nomActeur = 'MLA', 'Panchayat', 'Etat' 'UE', 'NABARD', 'TUA', 'ONG',
+                string codeProjet = 'P001'
+            )>
+        )
+
+        CustumParameter OrganisationProductionBiensServices(
+            (CustumParameter(
+                nomParametre = 'ActeursChoisis',
+                (codeActeur = 'A001', 'A002', 'A003',
+                 typeActeur = 'Acteurs Institutionnels', 'Acteurs Sociaux', 'Acteurs Economiques')
+            )),
+            <CustumParameter(
+                nomParametre = 'Contrat',
+                (codeContrat = null, contenuContrat = null,
+                 codeActeur = 'A001', 'A002', 'A003',
+                 typeActeur = 'Acteurs Institutionnels', 'Acteurs Sociaux', 'Acteurs Economiques')
+            )>
+        }
+
+        CustumParameter(
+            nomParametre = 'DefinitionReglesPlanEvaluation',
+            (CustumParameter(
+                nomParametre = 'FinancementI',
+                (codeFinancementI = null, typeFinancement = null, nomBailleur = null)
+            ) |
+            CustumParameter(
+                nomParametre = 'Contrat',
+                (codeContrat = null)
+            ) |
+            CustumParameter(
+                nomParametre = 'FinancementE',
+                (codeFinancementE = 'CFE0001', 'CFE0002',
+                 typeFinancement = 'Economique',
+                 nomBailleur = 'UE', 'NABARD')
+            )),
+            <CustumParameter(
+                nomParametre = 'PlanEvaluation',
+                (codePlanE = null,
+                 codeFinancementI = null,
+                 codeFinancementE = 'CFE0001', 'CFE0002',
+                 typeFinancement = 'Economique',
+                 nomBailleur = 'UE', 'NABARD')
+            )>
+        }
+
+        CustumParameter(
+            nomParametre = 'MisePlaceInstanceCoordination',
+            (CustumParameter(
+                nomParametre = 'PlanEvaluation',
+                (codePlanE = null)
+            )),
+            <CustumParameter(
+                nomParametre = 'PlanCommunication',
+                (codePlanC = null, codePlanE = null)
+            )>
+        }
+
+        CustumParameter(
+            nomParametre = 'ReceptionTravaux',
+            (CustumParameter(
+                nomParametre = 'PlanCommunication',
+                (codePlanC = null, codeActeurs = 'A001', 'A002', 'A003')
+            )),
+            CustumParameter(
+                nomParametre = 'ProjetReceptionne',
+                (codeProjetR = 'P001', contenuR = null, dateRecep = null, codePlanC = null)
+            )
+        }
+    }
+}

@@ -1,0 +1,99 @@
+Process rehabilitationTanks {
+     TaskComposite rehabilitationTanksAI (
+        CustumParameter BesoinPopulation (
+            string codeBesoin = 'B001'
+            string descriptionBesoin = 'Besoin rehabilitation Tanks'
+        )
+        <CustumParameter ProjetReceptionne(
+            string nomParametre = 'ProjetReceptionne'
+            string codeProjetR = 'P001'
+            string contenuR
+            string dateRecep
+            string codePlanC
+        )>
+    ) {
+    	taches
+        TaskSimple DefinitionInteretGeneral (
+            CustumParameter BesoinPopulation(
+                string codeBesoin = 'B001'
+                string descriptionBesoin = 'Besoin rehabilitation Tanks'
+            )
+            <CustumParameter ProjetR(
+                string codeProjet = 'P001'
+                string contenuProjet
+                string codeBesoin = 'B001'
+            )>
+        ){}
+
+        TaskSimple EtudeSelectionActeurs (
+            CustumParameter ProjetR (
+                string codeProjet = 'P001'
+            )
+            <CustumParameter ActeursChoisis(
+            	string code = 'A001', 'A002', 'A003'
+                string typeActeur = 'Acteurs Institutionnels', 'Acteurs Sociaux', 'Acteurs Economiques'
+                string nomActeur = 'MLA', 'Panchayat', 'Etat', 'UE', 'NABARD', 'TUA', 'ONG'
+                string codeProjet = 'P001'
+            )>
+        ){}
+
+        TaskSimple OrganisationProductionBiensServices (
+            CustumParameter ActeursChoisis(
+                string code = 'A001', 'A002', 'A003'
+                string typeActeur = 'Acteurs Institutionnels', 'Acteurs Sociaux', 'Acteurs Economiques'
+            )
+            <CustumParameter Contrat (
+                string codeContrat
+                string contenuContrat
+                string codeActeurs = 'A001', 'A002', 'A003'
+                string typeActeur = 'Acteurs Institutionnels', 'Acteurs Sociaux', 'Acteurs Economiques'
+            )>
+        ){}
+
+        TaskSimple DefinitionReglesPlanEvaluation(
+            CustumParameter FinancementI(
+                string codeFinancementI
+                string typeFinancement
+                string nomBailleur
+            )
+            CustumParameter Contrat(
+                string codeContrat
+            )
+            CustumParameter FinancementE(
+                string codeFinancementE = 'CFE0001', 'CFE0002'
+                string typeFinancement = 'Economique'
+                string nomBailleur = 'UE', 'NABARD'
+            )
+	        <CustumParameter PlanEvaluation(
+	            string codePlanE
+	            string codeFinancementI
+	            string codeFinancementE = 'CFE0001', 'CFE0002'
+	            string typeFinancement = 'Economique'
+	            string nomBailleur = 'UE', 'NABARD'
+	        )>
+        ){}
+
+        TaskSimple MisePlaceInstanceCoordination(
+            CustumParameter PlanEvaluation(
+                string codePlanE
+            )
+            <CustumParameter PlanCommunication(
+                string codePlanC
+                string codePlanE
+            )>
+        ){}
+
+        TaskSimple ReceptionTravaux(
+            CustumParameter PlanCommunication(
+                string codePlanC
+                string codeActeurs = 'A001', 'A002', 'A003'
+            )
+            CustumParameter ProjetReceptionne(
+                string codeProjetR = 'P001'
+                string contenuR
+                string dateRecep
+                string codePlanC
+            )
+        ){}
+    }
+}

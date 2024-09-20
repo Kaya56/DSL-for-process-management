@@ -1,0 +1,4 @@
+INDEX VERSION 1.134+C:\Users\LENOVO E14\eclipse-workspace\dsl0\runtime-EclipseApplication\.metadata\.plugins\org.eclipse.jdt.core
+965077298.index
+726196553.index
+1865797976.index

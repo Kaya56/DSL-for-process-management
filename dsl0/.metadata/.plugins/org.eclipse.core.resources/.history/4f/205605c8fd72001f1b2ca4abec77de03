@@ -1,0 +1,110 @@
+grammar org.xtext.example.process.Process with org.eclipse.xtext.common.Terminals
+
+generate process "http://www.xtext.org/example/process/Process"
+
+/* Le fichier est fait d'un ensemble de processus. */
+Model:
+	processus+=Processus*
+;
+
+/* NOTER BIEN : Dans notre logique, toutes les entités possèdent des identifiants 
+ * (A moins qu'on ne précise le contraire).
+ * Aussi, on n'a pas encore géré la notion de clé étrangère présente dans le document (symbole #)
+ */
+
+/* Un processus a en entrée des besoins, en sortie des projets et est composé de taches. */
+Processus:
+	'Processus' nomProcessus=ID '(' besoins+=Besoin* ')' '<' projets+=Projet* '>'
+	'{'
+		taches+=Tache*
+	'}'
+;
+
+/* Un besoin a au moins un parametre d'entrée. */
+Besoin:
+	'Besoin' nomBesoin=ID '(' entrees+=Parametre (',' entrees+=Parametre)* ')'
+;
+
+/* Un projet a au moins un parametre d'entrée. */
+Projet:
+	'Projet' nomProjet=ID '(' entrees+=Parametre (',' entrees+=Parametre)* ')'
+;
+
+/* Un parametre en plus de son identifiant a une valeur (singleton ou alors une liste de valeurs). */
+Parametre:
+	nomParam=ID '=' valeurParam+=Contenu (',' valeurParam+=Contenu)*
+;
+
+Contenu:
+	(STRING | INT | 'true' | 'false' | 'null' | 'NaN' | 'nan')
+;
+
+/* Une tache a en entrée des besoins, en sortie des projet et est composée d'étapes. */
+Tache:
+	'Tache' nomTache=ID '(' besoins+=Besoin* ')' '<' projets+=Projet* '>'
+	'{'
+		etapes+=Etape*
+	'}'
+;
+
+/* Une etape a en entrée des parametres d'Etape et en sortie des parametres d'Etape. */
+Etape:
+	'Etape' nomEtape=ID '(' paramsEtape+=ParamEtape* ')' '<' paramsEtape+=ParamEtape* '>'
+;
+
+/* Un parametre d'Etape est une des entités suivantes. */
+ParamEtape:
+	besoin=Besoin | financement=Financement | contrat=Contrat | projet=Projet | acteur=Acteur | plan=Plan
+;
+
+/* Un financement est soit un financement I, soit un financement E.
+ * Nous les avons séparé dans la perspective d'une distinction (éventuellement plus détaillée dans le futur)
+ * de ces deux types comme le suggère le document. Il en est de même pour Contrat et pour Acteur.
+ */
+Financement:
+	FinancementI | FinancementE
+;
+
+/* A en entree au moins un parametre */
+/* Pas d'identifiant */
+FinancementI:
+	'FinancementI' '(' entrees+=Parametre (',' entrees+=Parametre)* ')'
+;
+
+/* A en entree au moins un parametre */
+/* Pas d'identifiant */
+FinancementE:
+	'FinancementE' '(' entrees+=Parametre (',' entrees+=Parametre)* ')'
+;
+
+/* A en entree au moins un parametre */
+/* Pas d'identifiant */
+Contrat:
+	'Contrat' '(' entrees+=Parametre (',' entrees+=Parametre)* ')'
+;
+
+/* A en entree au moins un parametre */
+/* Pas d'identifiant */
+Acteur:
+	'Acteur' '(' entrees+=Parametre (',' entrees+=Parametre)* ')'
+;
+
+/* Un plan est soit un plan d'evaluation, soit un plan de communication.
+ * Nous les avons séparé dans la perspective d'une distinction (éventuellement plus détaillée dans le futur)
+ * de ces deux types comme le suggère le document.
+ */
+Plan:
+	PlanEvaluation | PlanCommunication
+;
+
+/* A en entree au moins un parametre */
+/* Pas d'identifiant */
+PlanEvaluation:
+	'PlanEvaluation' '(' entrees+=Parametre (',' entrees+=Parametre)* ')'
+;
+
+/* A en entree au moins un parametre */
+/* Pas d'identifiant */
+PlanCommunication:
+	'PlanCommunication' '(' entrees+=Parametre (',' entrees+=Parametre)* ')'
+;

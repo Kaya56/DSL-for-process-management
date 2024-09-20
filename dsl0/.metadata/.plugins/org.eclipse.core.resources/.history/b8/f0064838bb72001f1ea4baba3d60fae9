@@ -1,0 +1,9 @@
+grammar org.xtext.example.process.Process with org.eclipse.xtext.common.Terminals
+
+generate process "http://www.xtext.org/example/process/Process"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';

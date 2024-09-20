@@ -1,0 +1,124 @@
+grammar org.xtext.example.process.Process with org.eclipse.xtext.common.Terminals
+
+generate process "http://www.xtext.org/example/process/Process"
+
+// Déclaration des éléments principaux
+Model:
+	processus+=Process*
+;
+Process:
+    'Process' identifiant=STRING
+    ('(' entrees+=Parameter* ')')? // Paramètres d'entrée
+    ('<' sorties+=Parameter* '>')? // Paramètres de sortie
+    '{'
+        (variables+=VariableDeclaration*)? // Déclaration de variables
+        (taches+=Task*)?
+        (acteurCategories+=ActorCategory*)?
+    '}';
+
+ActorCategory:
+    'ActorCategory' identifiant=STRING
+    '{'
+        'codeActeur' ':' codeActeur=STRING
+        'descriptionActeur' ':' descriptionActeur=STRING
+        ('acteursConcrets' ':' acteursConcrets+=ConcretActor*)?
+    '}';
+
+ConcretActor:
+    'ConcretActor' identifiant=STRING
+    '{'
+        'descriptionActeur' ':' descriptionActeur=STRING
+    '}';
+
+Task:
+    TaskSimple | TaskComposite;
+
+TaskSimple:
+    'TaskSimple' identifiant=STRING
+    ('(' entrees+=Parameter* ')')? // Paramètres d'entrée
+    ('<' sorties+=Parameter* '>')? // Paramètres de sortie
+    '{'
+        ('descriptionActeur' ':' descriptionActeur=STRING)?
+    '}';
+
+TaskComposite:
+    'TaskComposite' identifiant=STRING
+    ('(' entrees+=Parameter* ')')? // Paramètres d'entrée
+    ('<' sorties+=Parameter* '>')? // Paramètres de sortie
+    '{'
+        ('descriptionActeur' ':' descriptionActeur=STRING)?
+        'taches' taches+=Task* // Une tâche composite contient d'autres tâches (simples ou composites)
+    '}';
+
+Parameter:
+    SimpleParameter | ComplexParameter;
+
+SimpleParameter:
+    StringParameter | IntParameter | FloatParameter | BooleanParameter;
+
+StringParameter:
+    'String' value=STRING;
+
+IntParameter:
+    'Int' value=INT;
+
+FloatParameter:
+    'Float' value=FLOAT; // Correction ici
+
+BooleanParameter:
+    'Boolean' value=('true' | 'false');
+
+ComplexParameter:
+    Process | TaskSimple | TaskComposite | ActorCategory | ConcretActor | CustumParameter;
+
+CustumParameter:
+    'CustumParameter' nomParametre=STRING
+    ('(' parametresEntree+=Parameter* ')')? // Paramètres d'entrée
+    ('<' parametresSortie+=Parameter* '>')? // Paramètres de sortie
+    ('{'        
+        ('descriptionActeur' ':' descriptionActeur=STRING)?
+    '}')?;
+
+// Déclaration et réutilisation des variables
+VariableDeclaration:
+    type=VariableType identifiant=ID ('=' value=Expression)? ';'; // Correction ici
+
+VariableType:
+    SimpleVariableType | ComplexVariableType | ArrayType;
+
+SimpleVariableType:
+    'int' | 'string' | 'float' | 'boolean';
+
+ComplexVariableType:
+    'Process' | 'TaskSimple' | 'TaskComposite' | 'ActorCategory' | 'ConcretActor';
+
+ArrayType:
+    SimpleVariableType '[' ']' | ComplexVariableType '[' ']'; // Tableau de types simples ou complexes
+
+Expression:
+    Literal | VariableReference | ArrayAccess;
+
+Literal:
+    StringLiteral | IntLiteral | FloatLiteral | BooleanLiteral;
+
+StringLiteral:
+    value=STRING;
+
+IntLiteral:
+    value=INT;
+
+FloatLiteral:
+    value=FLOAT;
+
+BooleanLiteral:
+    value=('true' | 'false');
+
+// Références aux variables déjà déclarées
+VariableReference:
+    variable=[VariableDeclaration];
+
+ArrayAccess:
+    array=[VariableDeclaration] '[' index=INT ']'; // Accès à un élément d'un tableau
+
+terminal FLOAT:
+    '-'? INT '.' INT (('e' | 'E') '-'? INT)?;
